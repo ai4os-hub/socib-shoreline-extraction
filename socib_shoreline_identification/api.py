@@ -41,7 +41,7 @@ from webargs import fields, validate
 
 from . import config, misc
 
-from socib_shoreline_identification.app.model.deeplab import DeepLabV3
+from socib_shoreline_identification.app.predictor import ShorelinePredictor
 
 # set up logging
 logger = logging.getLogger(__name__)
@@ -107,10 +107,36 @@ def predict(**kwargs):
     
     """
     print("Received kwargs:", kwargs)
-    model = DeepLabV3(num_classes=2)
-    print("Model initialized.")
 
+    image_file = kwargs.get("file")
+    if image_file is None:
+        raise ValueError("No image file provided in the 'file' argument.")
+    
+    image_path = image_file.filename
+    print("Image path:", image_path)
+    
+    # Testing only for rectified images, 3 classes
+    is_rectified = True
 
+    path = "rectified" if is_rectified else "oblique"
+    model_weight_path = os.path.abspath(os.path.join(os.getcwd(), f"models/{path}_best_model.pth"))
+    print("Model weight path:", model_weight_path)
+
+    model = "DeepLabV3"
+    num_classes = 3 if is_rectified else 2
+
+    predictor = ShorelinePredictor(model, model_weight_path, num_classes)
+    
+    landward_pixel_pred = 1 if is_rectified else 0
+    seaward_pixel_pred = 2 if is_rectified else 1
+
+    output = predictor.predict(image_path, patch_size=(256, 256), stride=(128, 128), landward_pixel_pred=landward_pixel_pred, seaward_pixel_pred=seaward_pixel_pred)
+    print("Prediction completed.")
+    print("Output keys:", output.keys())
+    print("Output predicted_image shape:", output["predicted_image"].shape)
+
+    # TODO: handle different accept types
+    return output["predicted_image"]
 
 # # Schema to validate the `predict()` output if accept field is "application/json"
 # schema = {

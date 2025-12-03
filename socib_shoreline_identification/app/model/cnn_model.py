@@ -1,9 +1,12 @@
 import torch
+import tempfile
 from typing import Type
 from torch import Tensor
 from torch.utils.data import Dataset
 from socib_shoreline_identification.app.model.base_model import BaseModel
 from socib_shoreline_identification.app.data_processing.cnn_formes import CNNFormes
+from socib_shoreline_identification.app.data_processing.patchify import Patchify
+from socib_shoreline_identification.app.data_processing.patch_reconstructor import PatchReconstructor
 
 class CNNModel(BaseModel):
     def __init__(self, model: torch.nn.Module, num_classes: int = 2):

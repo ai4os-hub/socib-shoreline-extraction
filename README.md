@@ -27,7 +27,7 @@ To launch it, first install the package then run [deepaas](https://github.com/ai
 git clone https://github.com/ai4os-hub/ai4os-demo-app
 cd ai4os-demo-app
 pip install -e .
-deepaas-run --listen-ip 0.0.0.0
+deepaas-run --listen-ip 0.0.0.0 --config-file deepaas.conf
 ```
 
 ## Contributing

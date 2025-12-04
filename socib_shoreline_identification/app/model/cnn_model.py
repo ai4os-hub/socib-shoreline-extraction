@@ -2,15 +2,14 @@ import tempfile
 from typing import Type
 
 import torch
-from torch import Tensor
-from torch.utils.data import Dataset
-
-from socib_shoreline_identification.app.data_processing.cnn_formes import CNNFormes
-from socib_shoreline_identification.app.data_processing.patch_reconstructor import (
+from socib_shoreline_extraction.app.data_processing.cnn_formes import CNNFormes
+from socib_shoreline_extraction.app.data_processing.patch_reconstructor import (
     PatchReconstructor,
 )
-from socib_shoreline_identification.app.data_processing.patchify import Patchify
-from socib_shoreline_identification.app.model.base_model import BaseModel
+from socib_shoreline_extraction.app.data_processing.patchify import Patchify
+from socib_shoreline_extraction.app.model.base_model import BaseModel
+from torch import Tensor
+from torch.utils.data import Dataset
 
 
 class CNNModel(BaseModel):

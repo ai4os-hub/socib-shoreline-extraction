@@ -3,9 +3,9 @@ requires = ["setuptools", "setuptools-scm"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "socib_shoreline_identification"
+name = "socib_shoreline_extraction"
 version = "0.1.0"
-authors = [{ name = "Ignacio Heredia", email = "iheredia@ifca.unican.es" }]
+authors = [{ name = "Josep Oliver Sanso", email = "joliver@socib.es" }]
 description = "A demo application to test (eg. DEEPaaS testing). Does not contain any AI code."
 readme = "README.md"
 license = { text = "MIT" }
@@ -26,7 +26,7 @@ dependencies = { file = ["requirements.txt"] }
 
 
 [tool.setuptools.packages.find]
-include = ["socib_shoreline_identification"]
+include = ["socib_shoreline_extraction"]
 
 [project.entry-points."deepaas.v2.model"]
-socib_shoreline_identification = "socib_shoreline_identification.api"
+socib_shoreline_extraction = "socib_shoreline_extraction.api"

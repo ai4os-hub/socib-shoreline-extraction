@@ -5,21 +5,21 @@ import cv2
 import numpy as np
 
 # Data processing imports
-# from socib_shoreline_identification.app.data_processing import
-from socib_shoreline_identification.app.data_processing import obtain_shoreline
-from socib_shoreline_identification.app.data_processing.crop import (
+# from socib_shoreline_extraction.app.data_processing import
+from socib_shoreline_extraction.app.data_processing import obtain_shoreline
+from socib_shoreline_extraction.app.data_processing.crop import (
     apply_masks,
     crop,
     merge_image_with_mask,
     merge_masks,
 )
-from socib_shoreline_identification.app.data_processing.dataset_preprocessor import (
+from socib_shoreline_extraction.app.data_processing.dataset_preprocessor import (
     DatasetPreprocessor,
 )
-from socib_shoreline_identification.app.model.base_model import BaseModel
+from socib_shoreline_extraction.app.model.base_model import BaseModel
 
 # Model imports
-from socib_shoreline_identification.app.model.deeplab import DeepLabV3
+from socib_shoreline_extraction.app.model.deeplab import DeepLabV3
 
 
 class ShorelinePredictor:

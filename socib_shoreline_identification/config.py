@@ -8,14 +8,13 @@ By convention, the CONSTANTS defined in this module are in UPPER_CASE.
 
 import logging
 import os
-from pathlib import Path
 from importlib import metadata
+from pathlib import Path
 
 import yaml
 
-
 # Get AI model metadata from pyproject.toml
-API_NAME = "socib_shoreline_identification"
+API_NAME = "socib_shoreline_extraction"
 PACKAGE_METADATA = metadata.metadata(API_NAME)  # .json
 
 # Get ai4-metadata.yaml metadata

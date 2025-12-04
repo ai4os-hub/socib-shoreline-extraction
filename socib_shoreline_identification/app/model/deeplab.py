@@ -1,11 +1,10 @@
 import torch
+from socib_shoreline_extraction.app.model.cnn_model import CNNModel
 from torch import Tensor
 from torchvision.models.segmentation import (
     DeepLabV3_ResNet50_Weights,
     deeplabv3_resnet50,
 )
-
-from socib_shoreline_identification.app.model.cnn_model import CNNModel
 
 
 class DeepLabV3(CNNModel):

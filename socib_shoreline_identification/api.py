@@ -30,9 +30,8 @@ from io import BytesIO
 from pathlib import Path
 
 import cv2
+from socib_shoreline_extraction.app.predictor import ShorelinePredictor
 from webargs import fields, validate
-
-from socib_shoreline_identification.app.predictor import ShorelinePredictor
 
 from . import config
 

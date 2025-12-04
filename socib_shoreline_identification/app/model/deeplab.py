@@ -1,9 +1,12 @@
 import torch
-
-from socib_shoreline_identification.app.data_processing.cnn_formes import CNNFormes
-from socib_shoreline_identification.app.model.cnn_model import CNNModel
 from torch import Tensor
-from torchvision.models.segmentation import deeplabv3_resnet50, DeepLabV3_ResNet50_Weights
+from torchvision.models.segmentation import (
+    DeepLabV3_ResNet50_Weights,
+    deeplabv3_resnet50,
+)
+
+from socib_shoreline_identification.app.model.cnn_model import CNNModel
+
 
 class DeepLabV3(CNNModel):
     """
@@ -13,6 +16,7 @@ class DeepLabV3(CNNModel):
     for the DeepLabV3 architecture. It initializes the model with the
     DeepLabV3 architecture and sets the number of output classes.
     """
+
     def __init__(self, num_classes: int = 2, pretrained: bool = False):
         if pretrained:
             model = deeplabv3_resnet50(weights=DeepLabV3_ResNet50_Weights.DEFAULT)
@@ -21,8 +25,8 @@ class DeepLabV3(CNNModel):
 
         # Change the output layer to match the number of classes
         model.classifier[4] = torch.nn.Conv2d(256, num_classes, kernel_size=1)
-        
+
         super().__init__(model=model, num_classes=num_classes)
 
     def forward_pass(self, input_image: Tensor) -> Tensor:
-        return self.model(input_image)['out']
+        return self.model(input_image)["out"]

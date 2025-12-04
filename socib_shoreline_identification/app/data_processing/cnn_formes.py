@@ -1,10 +1,11 @@
-import cv2
-import albumentations as A
-
-from albumentations.pytorch import ToTensorV2
-from torch.utils.data import Dataset
 from typing import List, Optional, Tuple
+
+import albumentations as A
+import cv2
+from albumentations.pytorch import ToTensorV2
 from torch import Tensor
+from torch.utils.data import Dataset
+
 
 class CNNFormes(Dataset):
     """
@@ -19,7 +20,13 @@ class CNNFormes(Dataset):
         len (int): Number of samples in the dataset.
     """
 
-    def __init__(self, imgs_path: List[str], labels_path: List[str] = None, transform: Optional[A.Compose] = None, resize_shape: Tuple[int, int] = (256, 256)):
+    def __init__(
+        self,
+        imgs_path: List[str],
+        labels_path: List[str] = None,
+        transform: Optional[A.Compose] = None,
+        resize_shape: Tuple[int, int] = (256, 256),
+    ):
         """
         Initializes the CNNFormes dataset.
 
@@ -36,14 +43,13 @@ class CNNFormes(Dataset):
         self.len: int = len(self.imgs_path)
 
         if transform is None:
-            self.transform = A.Compose([
-                A.Resize(resize_shape[0], resize_shape[1]),
-                A.Normalize(
-                    mean=(0.485, 0.456, 0.406),
-                    std=(0.229, 0.224, 0.225)
-                ),
-                ToTensorV2(),
-            ])
+            self.transform = A.Compose(
+                [
+                    A.Resize(resize_shape[0], resize_shape[1]),
+                    A.Normalize(mean=(0.485, 0.456, 0.406), std=(0.229, 0.224, 0.225)),
+                    ToTensorV2(),
+                ]
+            )
         else:
             self.transform = transform
 
@@ -70,14 +76,14 @@ class CNNFormes(Dataset):
 
         # apply the transformations
         data = self.transform(image=img, mask=mask)
-        image_transformed = data['image']
-        mask_transformed = data['mask']
+        image_transformed = data["image"]
+        mask_transformed = data["mask"]
 
         if mask_transformed is None:
             return image_transformed
 
         # return the path of the image and the path of the label
         return image_transformed, mask_transformed
-        
+
     def __len__(self):
         return self.len

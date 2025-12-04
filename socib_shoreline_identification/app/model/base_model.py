@@ -1,27 +1,22 @@
-import os
+from abc import ABC, abstractmethod
+
 import torch
 import torch.nn as nn
-import numpy as np
-import tempfile
-
-from abc import ABC, abstractmethod
-from typing import Union, Type
-from torch.utils.data import Dataset
 from torch import Tensor
-from socib_shoreline_identification.app.data_processing.patchify import Patchify
-from socib_shoreline_identification.app.data_processing.patch_reconstructor import PatchReconstructor
-from socib_shoreline_identification.app.data_processing.cnn_formes import CNNFormes
-from typing import Tuple
+
 
 class BaseModel(ABC):
-    def __init__(self, model: nn.Module, classes: int = 0, network_name: str = None) -> None:
+    def __init__(
+        self, model: nn.Module, classes: int = 0, network_name: str = None
+    ) -> None:
         """
         Initializes the BaseModel object.
 
         Parameters:
         model (nn.Module): The model to use.
         classes (int): The number of classes in the dataset. Default is 0.
-        network_name (str): The name of the network. If None, the class name of the model will be used.
+        network_name (str): The name of the network. If None, the class name of the 
+                model will be used.
 
         Returns:
         None
@@ -43,10 +38,18 @@ class BaseModel(ABC):
         Returns:
         None
         """
-        self.model.load_state_dict(torch.load(path, map_location=self.device, weights_only=True))
+        self.model.load_state_dict(
+            torch.load(path, map_location=self.device, weights_only=True)
+        )
 
     @abstractmethod
-    def predict(self, input_image: Tensor, raw_output = False, binary_threshold = 0.5, resize_shape = (256, 256)) -> Tensor:
+    def predict(
+        self,
+        input_image: Tensor,
+        raw_output=False,
+        binary_threshold=0.5,
+        resize_shape=(256, 256),
+    ) -> Tensor:
         """Predicts the output for a single input image."""
         pass
 

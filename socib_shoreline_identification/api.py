@@ -93,6 +93,7 @@ def get_predict_args():
     }
     return arg_dict
 
+
 # @_catch_error
 def predict(**kwargs):
     """ """

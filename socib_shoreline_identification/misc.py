@@ -5,9 +5,6 @@ but users might want nevertheless to take advantage from them.
 """
 
 from functools import wraps
-from multiprocessing import Process
-import subprocess  # nosec
-import warnings
 
 from aiohttp.web import HTTPBadRequest
 

@@ -135,7 +135,7 @@ class CNNModel(BaseModel):
             return torch.softmax(reconstruded, dim=0)
 
         if self.classes == 1:
-            if raw_output == True:
+            if raw_output:
                 return reconstruded.squeeze()
             pred = (reconstruded.squeeze() > binary_threshold).float()
             return pred

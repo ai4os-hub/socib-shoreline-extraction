@@ -15,8 +15,7 @@ class BaseModel(ABC):
         Parameters:
         model (nn.Module): The model to use.
         classes (int): The number of classes in the dataset. Default is 0.
-        network_name (str): The name of the network. If None, the class name of the 
-                model will be used.
+        network_name (str): The name of the network. If None, the class name of the model will be used.
 
         Returns:
         None

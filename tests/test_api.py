@@ -33,9 +33,7 @@ class TestModelMethods(unittest.TestCase):
             self.meta["name"].lower().replace("-", "_"),
             "socib_shoreline_identification".lower().replace("-", "_"),
         )
-        self.assertEqual(
-            self.meta["author"].lower(), "Ignacio Heredia".lower()
-        )
+        self.assertEqual(self.meta["author"].lower(), "Ignacio Heredia".lower())
         self.assertEqual(
             self.meta["license"].lower(),
             "MIT".lower(),

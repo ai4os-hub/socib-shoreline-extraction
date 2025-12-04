@@ -60,7 +60,7 @@ class Patchify:
         skip_background: bool = True,
         skip_no_shoreline: int = False,
         binary_class: bool = False,
-        padding_mode: str = "constant"
+        padding_mode: str = "constant",
     ) -> List[dict]:
         """
         Extracts patches from the image and mask located at the given paths.
@@ -210,7 +210,7 @@ class Patchify:
         skip_background: bool = False,
         skip_no_shoreline: bool = False,
         padding_mode: str = "constant",
-        binary_class: bool = False
+        binary_class: bool = False,
     ) -> None:
         """
         Extracts patches from the image and mask, and saves them to the specified directory.
@@ -232,7 +232,7 @@ class Patchify:
             padding_mode=padding_mode,
             skip_no_shoreline=skip_no_shoreline,
             binary_class=binary_class,
-            skip_background=skip_background
+            skip_background=skip_background,
         )
         patches = result["patches"]
 
@@ -256,7 +256,7 @@ class Patchify:
         skip_no_shoreline: int = None,
         padding_mode: str = "constant",
         skip_background: bool = False,
-        binary_class: bool = False
+        binary_class: bool = False,
     ) -> None:
         """
         Extract patches from images and masks, and save them into the specified directory
@@ -298,7 +298,7 @@ class Patchify:
                     padding_mode=padding_mode,
                     skip_no_shoreline=skip_no_shoreline,
                     skip_background=skip_background,
-                    binary_class=binary_class
+                    binary_class=binary_class,
                 )
 
             print(f"Finished extracting patches for {dataset} dataset.\n")

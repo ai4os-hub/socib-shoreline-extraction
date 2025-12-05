@@ -30,8 +30,9 @@ from io import BytesIO
 from pathlib import Path
 
 import cv2
-from socib_shoreline_extraction.app.predictor import ShorelinePredictor
 from webargs import fields, validate
+
+from socib_shoreline_extraction.app.predictor import ShorelinePredictor
 
 from . import config
 
@@ -80,7 +81,47 @@ def get_predict_args():
                 "description": "Input an image.\n"
                 "accepted image formats: .jpg, .jpeg and .png. \n"
             },
-        ), 
+        ),
+        "rectified": fields.Bool(
+            required=False,
+            load_default=True,
+            metadata={
+                "description": (
+                    "Specifies if the image is a planimetric (top-down) view with "
+                    "uniform ground resolution (rectified) or preserves the "
+                    "camera's perspective with variable resolution (oblique)."
+                )
+            },
+        ),
+        "boolean_crop_roi": fields.Bool(
+            required=False,
+            metadata={
+                "description": (
+                    "Enable or disable cropping to the Region of Interest (ROI) "
+                    "before shoreline extraction. It is highly recommended to "
+                    "enable this option to focus on the land-water interface, "
+                    "reduce noise, and improve shoreline detection accuracy."
+                )
+            },
+            load_default=False,
+        ),
+        "crop_roi": fields.List(
+            fields.Int(),
+            required=False,
+            missing=None,
+            validate=validate.Length(equal=4),
+            metadata={
+                "description": (
+                    "Optional Region of Interest (ROI) to crop the image before "
+                    "analysis. Focusing on the land-water interface is highly "
+                    "recommended to reduce noise and improve shoreline detection "
+                    "accuracy. Format: [x1, y1, x2, y2], where (x1, y1) is "
+                    "top-left and (x2, y2) is bottom-right. Origin (0,0) is "
+                    "at the top-left."
+                )
+            },
+            load_default=[640, 480, 1000, 2000],
+        ),
         "accept": fields.Str(
             required=False,
             missing="application/json",
@@ -100,12 +141,24 @@ def predict(**kwargs):
 
     image_file = kwargs.get("file")
     if image_file is None:
-        raise ValueError("No image file provided in the 'file' argument.")
+        return "No image file provided."
+
+    is_boolean_crop_roi = kwargs.get("boolean_crop_roi", False)
+    crop_roi = kwargs.get("crop_roi", None) if is_boolean_crop_roi else None
+    if crop_roi is not None:
+        if len(crop_roi) != 4:
+            return "crop_roi must be a list of four integers: [x1, y1, x2, y2]"
+        for coord in crop_roi:
+            if not isinstance(coord, int):
+                return "All crop_roi coordinates must be integers."
+        
+        if crop_roi[0] >= crop_roi[2] or crop_roi[1] >= crop_roi[3]:
+            return "Invalid crop_roi coordinates: ensure that x2 > x1 and y2 > y1."
 
     image_path = image_file.filename
     print("Image path:", image_path)
     # Testing only for rectified images, 3 classes
-    is_rectified = True
+    is_rectified = kwargs.get("rectified", True)
 
     path = "rectified" if is_rectified else "oblique"
     model_weight_path = os.path.abspath(
@@ -121,13 +174,27 @@ def predict(**kwargs):
     landward_pixel_pred = 1 if is_rectified else 0
     seaward_pixel_pred = 2 if is_rectified else 1
 
-    output = predictor.predict(
-        image_path,
-        patch_size=(256, 256),
-        stride=(128, 128),
-        landward_pixel_pred=landward_pixel_pred,
-        seaward_pixel_pred=seaward_pixel_pred,
-    )
+    if crop_roi is None:
+        output = predictor.predict(
+            image_path,
+            patch_size=(256, 256),
+            stride=(128, 128),
+            landward_pixel_pred=landward_pixel_pred,
+            seaward_pixel_pred=seaward_pixel_pred,
+        )
+    else:
+        crop_coords = ((crop_roi[1], crop_roi[0]), (crop_roi[3], crop_roi[2]))
+        print("Using crop coordinates:", crop_coords)
+        output = predictor.predict_roi(
+            image_path,
+            crop_coords=crop_coords,
+            patch_size=(256, 256),
+            stride=(128, 128),
+            landward_pixel_pred=landward_pixel_pred,
+            seaward_pixel_pred=seaward_pixel_pred,
+        )
+    if output is None:
+        raise ValueError("Prediction failed, output is None.")
     print("Prediction completed.")
     print("Output keys:", output.keys())
     print("Output predicted_image shape:", output["predicted_image"].shape)

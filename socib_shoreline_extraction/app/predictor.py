@@ -90,6 +90,8 @@ class ShorelinePredictor:
         mask_pred = obtain_shoreline.transform_mask_to_shoreline_from_img(
             pred_np, landward=landward_pixel_pred, seaward=seaward_pixel_pred
         )
+        if mask_pred is None:
+            mask_pred = np.zeros((roi.shape[0], roi.shape[1]), dtype=np.uint8)
 
         # 4. Merge with original image
         if mask is not None:
@@ -184,20 +186,36 @@ class ShorelinePredictor:
         return pred
 
     def predict_roi(
-        self, image_path: str, crop_coords: tuple, patch_size: tuple, stride: tuple
+        self,
+        image_path: str,
+        crop_coords: tuple,
+        patch_size: tuple = (256, 512),
+        stride: tuple = (128, 256),
+        landward_pixel_gt: int = 0,
+        seaward_pixel_gt: int = 1,
+        landward_pixel_pred: int = 0,
+        seaward_pixel_pred: int = 1,
     ) -> np.ndarray:
         img = cv2.imread(image_path)
         img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+
+        crop_coords = (
+            (max(crop_coords[0][0], 0), max(crop_coords[0][1], 0)),
+            (
+                min(crop_coords[1][0], img.shape[0]),
+                min(crop_coords[1][1], img.shape[1]),
+            ),
+        )
 
         pred = self._predict(
             img,
             crop_coords,
             patch_size,
             stride,
-            landward_pixel_pred=0,
-            seaward_pixel_pred=1,
-            landward_pixel_gt=0,
-            seaward_pixel_gt=1,
+            landward_pixel_gt=landward_pixel_gt,
+            seaward_pixel_gt=seaward_pixel_gt,
+            landward_pixel_pred=landward_pixel_pred,
+            seaward_pixel_pred=seaward_pixel_pred,
         )
         return pred
 
@@ -311,7 +329,9 @@ class ShorelinePredictor:
         seaward_pixel: int = 2,
     ) -> np.ndarray:
         """
-        Explicit method for SCLabels dataset with rectified images and masks. Ideally is designed to extract the ROI based on the mask provided to be able to compare the results with the ground truth.
+        Explicit method for SCLabels dataset with rectified images and masks. Ideally is
+        designed to extract the ROI based on the mask provided to be able to compare the
+        results with the ground truth.
         """
 
         dataset_preprocessor = DatasetPreprocessor()

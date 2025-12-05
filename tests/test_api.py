@@ -19,7 +19,7 @@ def test_metadata_structure():
     assert isinstance(meta, dict), "Metadata should be a dictionary"
 
     # Check specific values
-    assert meta["author"].lower() == "josep oliver sanso", "Incorrect author name"
+    assert meta["author"].lower() == "josep oliver-sanso", "Incorrect author name"
     assert meta["license"].lower() == "mit", "Incorrect license"
     assert "socib_shoreline_extraction" in meta["name"].lower().replace("-", "_")
 

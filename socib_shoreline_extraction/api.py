@@ -134,7 +134,6 @@ def get_predict_args():
     return arg_dict
 
 
-# @_catch_error
 def predict(**kwargs):
     """ """
     print("Received kwargs:", kwargs)
@@ -151,7 +150,7 @@ def predict(**kwargs):
         for coord in crop_roi:
             if not isinstance(coord, int):
                 return "All crop_roi coordinates must be integers."
-        
+
         if crop_roi[0] >= crop_roi[2] or crop_roi[1] >= crop_roi[3]:
             return "Invalid crop_roi coordinates: ensure that x2 > x1 and y2 > y1."
 

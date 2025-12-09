@@ -70,16 +70,14 @@ def get_predict_args():
     * int with choices
     * composed: list of strs, list of int
     """
-    # WARNING: missing!=None has to go with required=False
-    # fmt: off
     arg_dict = {
-        "file": fields.Field(
+        "file": fields.Raw(
             required=True,
-            type="file",
-            location="form",
             metadata={
+                "type": "file",
+                "location": "form",
                 "description": "Input an image.\n"
-                "accepted image formats: .jpg, .jpeg and .png. \n"
+                "accepted image formats: .jpg, .jpeg and .png. \n",
             },
         ),
         "rectified": fields.Bool(
@@ -95,36 +93,29 @@ def get_predict_args():
         ),
         "boolean_crop_roi": fields.Bool(
             required=False,
+            load_default=False,
             metadata={
                 "description": (
                     "Enable or disable cropping to the Region of Interest (ROI) "
-                    "before shoreline extraction. It is highly recommended to "
-                    "enable this option to focus on the land-water interface, "
-                    "reduce noise, and improve shoreline detection accuracy."
+                    "before shoreline extraction."
                 )
             },
-            load_default=False,
         ),
         "crop_roi": fields.List(
             fields.Int(),
             required=False,
-            missing=None,
+            load_default=[640, 480, 1000, 2000],
             validate=validate.Length(equal=4),
             metadata={
                 "description": (
-                    "Optional Region of Interest (ROI) to crop the image before "
-                    "analysis. Focusing on the land-water interface is highly "
-                    "recommended to reduce noise and improve shoreline detection "
-                    "accuracy. Format: [x1, y1, x2, y2], where (x1, y1) is "
-                    "top-left and (x2, y2) is bottom-right. Origin (0,0) is "
-                    "at the top-left."
+                    "Optional Region of Interest (ROI) to crop the image. "
+                    "Format: [x1, y1, x2, y2]."
                 )
             },
-            load_default=[640, 480, 1000, 2000],
         ),
         "accept": fields.Str(
             required=False,
-            missing="application/json",
+            load_default="application/json",  # <-- CANVIAT AQUI
             validate=validate.OneOf(["application/json", "image/*"]),
             metadata={
                 "description": "Select the desired response format.",

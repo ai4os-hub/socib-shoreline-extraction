@@ -5,7 +5,8 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "socib_shoreline_extraction"
 version = "0.1.0"
-authors = [{ name = "Josep Oliver Sanso", email = "joliver@socib.es" }]
+authors = [{name = "Josep Oliver-Sanso", email = "joliver@socib.es"},
+           {name = "Jesus Soriano-Gonzalez", email = "jsoriano@socib.es"}]
 description = "A demo application to test (eg. DEEPaaS testing). Does not contain any AI code."
 readme = "README.md"
 license = { text = "MIT" }

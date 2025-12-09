@@ -39,17 +39,6 @@ ENV LANG C.UTF-8
 # Set the working directory
 WORKDIR /srv
 
-# # Install rclone (needed if syncing with NextCloud for training; otherwise remove)
-# RUN curl -O https://downloads.rclone.org/rclone-current-linux-amd64.deb && \
-#     dpkg -i rclone-current-linux-amd64.deb && \
-#     apt install -f && \
-#     mkdir /srv/.rclone/ && \
-#     touch /srv/.rclone/rclone.conf && \
-#     rm rclone-current-linux-amd64.deb && \
-#     rm -rf /var/lib/apt/lists/*
-
-# ENV RCLONE_CONFIG=/srv/.rclone/rclone.conf
-
 # Disable FLAAT authentication by default
 ENV DISABLE_AUTHENTICATION_AND_ASSUME_AUTHENTICATED_USER yes
 
@@ -60,16 +49,6 @@ RUN git clone https://github.com/ai4os/deep-start /srv/.deep-start && \
 
 # Necessary for the Jupyter Lab terminal
 ENV SHELL /bin/bash
-
-# # Test local installation
-# COPY . /srv/ai4os-demo-app
-# RUN pip3 install --no-cache-dir -e /srv/ai4os-demo-app
-
-# # Install user app
-# RUN git clone -b $branch https://github.com/ai4os-hub/ai4os-demo-app && \
-#     cd  ai4os-demo-app && \
-#     pip3 install --no-cache-dir -e . && \
-#     cd ..
 
 # TODO: Install from gitclone in a future
 COPY . /srv/socib-shoreline-extraction
@@ -83,3 +62,7 @@ EXPOSE 5000 6006 8888
 
 # Launch deepaas
 CMD ["deepaas-run", "--listen-ip", "0.0.0.0", "--listen-port", "5000", "--config-file", "deepaas.conf"]
+
+# Healthcheck
+HEALTHCHECK --interval=5s --timeout=3s --start-period=10s --retries=5 \
+  CMD curl --fail http://localhost:5000/v2  

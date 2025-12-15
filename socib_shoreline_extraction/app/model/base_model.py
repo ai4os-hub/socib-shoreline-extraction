@@ -23,9 +23,13 @@ class BaseModel(ABC):
         super(BaseModel, self).__init__()
         self.model = model
         self.classes = classes
-        self.network_name = network_name if network_name else model.__class__.__name__
+        self.network_name = (
+            network_name if network_name else model.__class__.__name__
+        )
 
-        self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+        self.device = torch.device(
+            "cuda" if torch.cuda.is_available() else "cpu"
+        )
 
     def load_model(self, path: str) -> None:
         """

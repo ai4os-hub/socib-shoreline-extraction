@@ -31,3 +31,7 @@ include = ["socib_shoreline_extraction"]
 
 [project.entry-points."deepaas.v2.model"]
 socib_shoreline_extraction = "socib_shoreline_extraction.api"
+
+
+[tool.ruff]
+line-length = 79

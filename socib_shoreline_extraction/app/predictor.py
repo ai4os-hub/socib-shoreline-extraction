@@ -105,12 +105,18 @@ class ShorelinePredictor:
             )
         else:
             final_img = apply_masks(
-                merged_img_with_pred, mask_pred, shoreline_pixel_predicted_mask=1
+                merged_img_with_pred,
+                mask_pred,
+                shoreline_pixel_predicted_mask=1,
             )
-        img_with_pred = merge_masks(img, final_img, crop_coords[0], crop_coords[1])
+        img_with_pred = merge_masks(
+            img, final_img, crop_coords[0], crop_coords[1]
+        )
 
         # Mask only with shoreline pixels
-        full_mask_shoreline = np.zeros((img.shape[0], img.shape[1]), dtype=np.uint8)
+        full_mask_shoreline = np.zeros(
+            (img.shape[0], img.shape[1]), dtype=np.uint8
+        )
         full_mask_shoreline = merge_masks(
             full_mask_shoreline, mask_pred, crop_coords[0], crop_coords[1]
         )
@@ -145,7 +151,9 @@ class ShorelinePredictor:
         }
 
         if extract_gt_mask_coords and mask is not None:
-            original_mask = np.zeros((img.shape[0], img.shape[1]), dtype=np.uint8)
+            original_mask = np.zeros(
+                (img.shape[0], img.shape[1]), dtype=np.uint8
+            )
             original_mask = merge_masks(
                 original_mask, mask, crop_coords[0], crop_coords[1]
             )

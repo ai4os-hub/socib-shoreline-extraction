@@ -28,7 +28,9 @@ class CNNModel(BaseModel):
         self.model.to(self.device)
         self.model.eval()
 
-        formes = formes_class(imgs_path=[image_path], resize_shape=resize_shape)
+        formes = formes_class(
+            imgs_path=[image_path], resize_shape=resize_shape
+        )
         input_image = formes[
             0
         ]  # Get the first element of the list, we only have one image
@@ -102,7 +104,8 @@ class CNNModel(BaseModel):
 
             # list of patches of the tmp directory
             input_imgs = [
-                f"{temp_dir}/{patch['image_path']}" for patch in result["patches"]
+                f"{temp_dir}/{patch['image_path']}"
+                for patch in result["patches"]
             ]
 
             # Predict the output for each patch

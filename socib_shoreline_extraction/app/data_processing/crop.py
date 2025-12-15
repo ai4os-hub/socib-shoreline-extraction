@@ -56,8 +56,8 @@ def apply_masks(
         overlay[only_original & ~both] = (
             alpha * color + (1 - alpha) * overlay[only_original & ~both]
         ).astype(np.uint8)
-        overlay[both] = (alpha * both_color + (1 - alpha) * overlay[both]).astype(
-            np.uint8
-        )
+        overlay[both] = (
+            alpha * both_color + (1 - alpha) * overlay[both]
+        ).astype(np.uint8)
 
     return overlay

@@ -35,7 +35,9 @@ def find_largest_contour(shoreline_mask):
     return largest_contour
 
 
-def transform_mask_to_shoreline_from_img(pred, no_data=0, landward=75, seaward=150):
+def transform_mask_to_shoreline_from_img(
+    pred, no_data=0, landward=75, seaward=150
+):
     shoreline = find_shoreline_scipy(pred, landward, seaward)
     # shoreline = find_shoreline(pred, landward, seaward)
 

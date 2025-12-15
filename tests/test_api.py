@@ -21,7 +21,9 @@ def test_metadata_structure():
     # Check specific values
     # assert meta["author"].lower() == "josep oliver-sanso", "Incorrect author name"
     assert meta["license"].lower() == "mit", "Incorrect license"
-    assert "socib_shoreline_extraction" in meta["name"].lower().replace("-", "_")
+    assert "socib_shoreline_extraction" in meta["name"].lower().replace(
+        "-", "_"
+    )
 
 
 # --- CONFIGURATION TESTS ---
@@ -102,7 +104,9 @@ def _validate_prediction_output(result, accept):
         assert isinstance(result, io.BytesIO), (
             f"Expected output to be a BytesIO object, got {type(result)}"
         )
-        assert result.getbuffer().nbytes > 0, "The returned image buffer is empty"
+        assert result.getbuffer().nbytes > 0, (
+            "The returned image buffer is empty"
+        )
 
     # CASE B: If we requested JSON (coordinates)
     else:
@@ -119,7 +123,9 @@ def _validate_prediction_output(result, accept):
         assert isinstance(result["v"], list), "'v' should be a list"
 
         # Verify consistency
-        assert len(result["u"]) == len(result["v"]), "Length of 'u' and 'v' must match"
+        assert len(result["u"]) == len(result["v"]), (
+            "Length of 'u' and 'v' must match"
+        )
 
         if len(result["u"]) > 0:
             print(f" Shoreline detected with {len(result['u'])} points.")

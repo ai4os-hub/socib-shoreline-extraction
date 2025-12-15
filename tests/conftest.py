@@ -92,5 +92,7 @@ def real_prediction_roi():
     # Define a valid crop [x1, y1, x2, y2] within 'rectified.jpg' dimensions
     roi_args = {"boolean_crop_roi": True, "crop_roi": [100, 100, 300, 300]}
 
-    result = _run_prediction(image_path, is_rectified, accept_type, extra_args=roi_args)
+    result = _run_prediction(
+        image_path, is_rectified, accept_type, extra_args=roi_args
+    )
     return result, accept_type

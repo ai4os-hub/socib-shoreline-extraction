@@ -37,7 +37,9 @@ class PatchReconstructor:
                 output, n_classes, orig_h, orig_w, patch_size, stride
             )
         else:
-            raise ValueError("Error: The combination method must be 'avg' or 'max'.")
+            raise ValueError(
+                "Error: The combination method must be 'avg' or 'max'."
+            )
 
         reconstruded = reconstruded[
             :,
@@ -59,15 +61,19 @@ class PatchReconstructor:
         reconstructed = np.zeros(
             (n_classes, original_heigh, original_width), dtype=np.float32
         )
-        count_map = np.zeros((original_heigh, original_width), dtype=np.float32)
+        count_map = np.zeros(
+            (original_heigh, original_width), dtype=np.float32
+        )
 
         idx = 0
         for y in range(0, original_heigh - patch_size[0] + 1, stride[0]):
             for x in range(0, original_width - patch_size[1] + 1, stride[1]):
-                output_np = output[idx].detach().cpu().numpy()  # Transform to numpy
-                reconstructed[:, y : y + patch_size[0], x : x + patch_size[1]] += (
-                    output_np
-                )
+                output_np = (
+                    output[idx].detach().cpu().numpy()
+                )  # Transform to numpy
+                reconstructed[
+                    :, y : y + patch_size[0], x : x + patch_size[1]
+                ] += output_np
                 count_map[y : y + patch_size[0], x : x + patch_size[1]] += 1
                 idx += 1
 
@@ -90,12 +96,16 @@ class PatchReconstructor:
         idx = 0
         for y in range(0, original_heigh - patch_size[0] + 1, stride[0]):
             for x in range(0, original_width - patch_size[1] + 1, stride[1]):
-                output_np = output[idx].detach().cpu().numpy()  # Transform to numpy
-                reconstructed[:, y : y + patch_size[0], x : x + patch_size[1]] = (
-                    np.maximum(
-                        reconstructed[:, y : y + patch_size[0], x : x + patch_size[1]],
-                        output_np,
-                    )
+                output_np = (
+                    output[idx].detach().cpu().numpy()
+                )  # Transform to numpy
+                reconstructed[
+                    :, y : y + patch_size[0], x : x + patch_size[1]
+                ] = np.maximum(
+                    reconstructed[
+                        :, y : y + patch_size[0], x : x + patch_size[1]
+                    ],
+                    output_np,
                 )
                 idx += 1
 

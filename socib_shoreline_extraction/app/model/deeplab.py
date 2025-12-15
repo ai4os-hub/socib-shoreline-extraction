@@ -18,7 +18,9 @@ class DeepLabV3(CNNModel):
 
     def __init__(self, num_classes: int = 2, pretrained: bool = False):
         if pretrained:
-            model = deeplabv3_resnet50(weights=DeepLabV3_ResNet50_Weights.DEFAULT)
+            model = deeplabv3_resnet50(
+                weights=DeepLabV3_ResNet50_Weights.DEFAULT
+            )
         else:
             model = deeplabv3_resnet50(weights=None)
 

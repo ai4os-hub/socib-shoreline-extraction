@@ -8,7 +8,9 @@ from patchify import patchify
 
 
 class Patchify:
-    def __init__(self, patch_size: tuple = (256, 256), stride: tuple = (128, 128)):
+    def __init__(
+        self, patch_size: tuple = (256, 256), stride: tuple = (128, 128)
+    ):
         """
         Initializes the Patchify object.
 
@@ -88,13 +90,21 @@ class Patchify:
         if padding_mode == "reflect":
             padded_image = np.pad(
                 image,
-                ((padding_top, padding_bottom), (padding_left, padding_right), (0, 0)),
+                (
+                    (padding_top, padding_bottom),
+                    (padding_left, padding_right),
+                    (0, 0),
+                ),
                 mode="reflect",
             )
         else:
             padded_image = np.pad(
                 image,
-                ((padding_top, padding_bottom), (padding_left, padding_right), (0, 0)),
+                (
+                    (padding_top, padding_bottom),
+                    (padding_left, padding_right),
+                    (0, 0),
+                ),
                 mode="constant",
                 constant_values=0,
             )
@@ -179,7 +189,9 @@ class Patchify:
 
         return result
 
-    def save_patch(self, patch: np.array, patch_path: str, patch_name: str) -> None:
+    def save_patch(
+        self, patch: np.array, patch_path: str, patch_name: str
+    ) -> None:
         """
         Saves a patch to the specified directory.
 

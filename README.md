@@ -1,86 +1,50 @@
-# ai4os-demo-app
+# SOCIB Shoreline extraction
 
-[![Build Status](https://jenkins.services.ai4os.eu/buildStatus/icon?job=AI4OS-hub/ai4os-demo-app/main)](https://jenkins.services.ai4os.eu/job/AI4OS-hub/job/ai4os-demo-app/job/main/)
-[![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-%23FE5196?logo=conventionalcommits&logoColor=white)](https://conventionalcommits.org)
-[![Code Style: Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
+[![Build Status](https://jenkins.cloud.ai4eosc.eu/buildStatus/icon?job=AI4OS-hub/socib-shoreline-extraction/main)](https://jenkins.cloud.ai4eosc.eu/job/AI4OS-hub/job/socib-shoreline-extraction/job/main/)
 
-A _minimal_ toy application for demo and testing purposes.
-It can serve as a reference implementation of current best practices in the project (mirroring the [DEEP template](https://github.com/ai4os/ai4-template)).
+Developed by [SOCIB](https://www.socib.es/), this AI module automatically delineates the shoreline in beach imagery. It achieves this through a two-step process: first, a Convolutional Neural Network performs image segmentation, and then an automated post-processing step defines the shoreline as the boundary between the segmented 'landward' and 'seaward' regions. The module integrates with the [DEEPaaS API](https://github.com/ai4os/DEEPaaS), which provides platform support and enhances the functionality and accessibility of the code, allowing users to interact with the detection pipeline efficiently.
 
-This demo module implements:
-* **dummy inference**, ie. we return the same inputs we are fed. If some input is not fed we generate a default one.
-* **dummy training**, ie. we sleep for some time and output some random monitoring metrics.
 
-Samples for media files are provided in `./data`.
+The underlying model (DeepLabV3) was trained on labelled oblique and rectified images from the [Spanish CoastSnap Network](https://doi.org/10.1016/j.ocecoaman.2024.107280), and delivers one different solution for each image type. 
 
-When you do a `PREDICT` inference call, the output will be formatted depending on the `accept` value you provided:
-- `application/json`: you will receive a JSON response
-- `application/zip`: you will receive the output packed as a ZIP file
-- `image/*`: you will receive an image as output
+## 🚀 Running the container
 
-Any other format is supported, though we only demonstrate these ones in this demo module.
+### ☁️ Directly from Docker Hub
 
-## Usage
+To run the Docker container directly from Docker Hub and start using the API, simply run the following command:
 
-To launch it, first install the package then run [deepaas](https://github.com/ai4os/DEEPaaS):
+
 ```bash
-git clone https://github.com/ai4os-hub/ai4os-demo-app
-cd ai4os-demo-app
-pip install -e .
-deepaas-run --listen-ip 0.0.0.0 --config-file deepaas.conf
+$ docker run -ti -p 5000:5000 ai4oshub/socib-shoreline-extraction
 ```
 
-## Contributing
+This command will pull the Docker container from the Docker Hub [ai4oshub](https://hub.docker.com/u/ai4oshub/) repository and start the default command (`deepaas-run --listen-ip=0.0.0.0 --config-file deepaas.conf`).
 
-This module tries to enforce best practices by using [Black](https://github.com/psf/black)
-to format the code.
+### 🛠️ Building the container
 
-For an optimal development experience, we recommend installing the VScode extensions
-[Black](https://marketplace.visualstudio.com/items?itemName=ms-python.black-formatter)
-and [Format on Auto Save](https://marketplace.visualstudio.com/items?itemName=BdSoftware.format-on-auto-save).
-Their configurations are automatically included in the [`.vscode`](./.vscode) folder.
-This will format the code during the automatic saves, though you can force formatting with
-`CTRL + Shift + I` (or `CTRL + S` to save).
-
-To enable them only for this repository: after installing, click `Disable`,
-then click `Enable (workspace)`.
-
-In the Black _global_ settings, we also recommend setting `black-formatter.showNotification = off`.
-
-## Project structure
+To build the container directly on your machine (for example, if you need to modify the `Dockerfile`), use the instructions below:
+```bash
+git clone https://github.com/ai4os-hub/socib-shoreline-extraction
+cd socib-shoreline-extraction
+docker build -t ai4oshub/socib-shoreline-extraction .
+docker run -ti -p 5000:5000 ai4oshub/socib-shoreline-extraction
 ```
-│
-├── Dockerfile             <- Describes main steps on integration of DEEPaaS API and
-│                             ai4os_demo_app application in one Docker image
-│
-├── Jenkinsfile            <- Describes basic Jenkins CI/CD pipeline (see .sqa/)
-│
-├── LICENSE                <- License file
-│
-├── README.md              <- The top-level README for developers using this project.
-│
-├── .sqa/                  <- CI/CD configuration files
-│
-├── ai4os_demo_app    <- Source code for use in this project.
-│   │
-│   ├── __init__.py        <- Makes ai4os_demo_app a Python module
-│   │
-│   ├── api.py             <- Main script for the integration with DEEPaaS API
-│   │
-│   └── misc.py            <- Misc functions that were helpful accross projects
-│
-├── data/                  <- Folder to store the data
-│
-├── models/                <- Folder to store models
-│
-├── tests/                 <- Scripts to perfrom code testing
-|
-├── metadata.json          <- Defines information propagated to the AI4OS Hub
-│
-├── requirements.txt       <- The requirements file for reproducing the analysis environment, e.g.
-│                             generated with `pip freeze > requirements.txt`
-├── requirements-test.txt  <- The requirements file for running code tests (see tests/ directory)
-│
-└── setup.py, setup.cfg    <- makes project pip installable (pip install -e .) so
-                              ai4os_demo_app can be imported
-```
+
+These three steps will download the repository from GitHub and will build the Docker container locally on your machine. You can inspect and modify the `Dockerfile` in order to check what is going on. For instance, you can pass the `--debug=True` flag to the `deepaas-run` command, in order to enable the debug mode.
+
+## 🔌 Connect to the API
+
+Once the container is up and running, browse to http://0.0.0.0:5000/ui to get the [OpenAPI (Swagger)](https://www.openapis.org/) documentation page.
+
+## 📂 Project structure
+
+
+
+## 🇪🇺 Acknowledgements
+
+This work was supported by ‘iMagine’ (Grant Agreement No.101058625) and ‘FOCCUS’ (Grant Agreement No.101133911) European Union funded projects. Views and opinions expressed are however those of the authors only and do not necessarily reflect those of the European Union or the European Health and Digital Executive Agency (HaDEA).
+
+## 📚 References
+- Soriano-González, J., et al. (2025). Machine learning-driven shoreline extraction and beach seagrass wrack detection from beach imaging systems. In Proceedings of the 10th Coastal Dynamics Conference (Aveiro).
+- [Soriano-González, J., et al. (2024). From a citizen science programme to a coastline monitoring system: Achievements and lessons learnt from the Spanish CoastSnap network](https://doi.org/10.1016/j.ocecoaman.2024.107280)
+- [Soriano-González, J., et al. (2023). SCLabels Dataset: Labelled rectified RGB images from the Spanish CoastSnap network](https://doi.org/10.5281/zenodo.10159977)

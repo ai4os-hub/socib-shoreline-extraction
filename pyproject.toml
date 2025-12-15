@@ -4,10 +4,9 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "socib_shoreline_extraction"
-version = "0.1.0"
 authors = [{name = "Josep Oliver-Sanso", email = "joliver@socib.es"},
            {name = "Jesus Soriano-Gonzalez", email = "jsoriano@socib.es"}]
-description = "A demo application to test (eg. DEEPaaS testing). Does not contain any AI code."
+description = "DeepLabV3-based application for AI-driven shoreline extraction"
 readme = "README.md"
 license = { text = "MIT" }
 classifiers = [
@@ -17,21 +16,21 @@ classifiers = [
     "Programming Language :: Python :: 3",
     "License :: OSI Approved :: MIT",
 ]
-dynamic = ["dependencies"]
+dynamic = ["version", "dependencies"]
 
 [project.urls]
-"Homepage" = "https://github.com/ai4os-hub/ai4os-demo-app"
+"Homepage" = "https://github.com/ai4os-hub/socib-shoreline-extraction"
+"Bug Tracker" = "https://github.com/ai4os-hub/socib-shoreline-extraction/issues"
 
 [tool.setuptools.dynamic]
 dependencies = { file = ["requirements.txt"] }
-
+version = { file = "VERSION" }
 
 [tool.setuptools.packages.find]
 include = ["socib_shoreline_extraction"]
 
 [project.entry-points."deepaas.v2.model"]
 socib_shoreline_extraction = "socib_shoreline_extraction.api"
-
 
 [tool.ruff]
 line-length = 79

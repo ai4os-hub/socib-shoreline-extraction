@@ -1,57 +1,41 @@
 metadata_version: 2.0.0
-title: ai4os-demo-app
-summary: A toy application for demo and testing purposes. We just implement dummy inference/training, ie. we return the same inputs we are fed. The module does not contain any AI code.
+title: SOCIB Shoreline extraction
+summary: A deployable AI module for shoreline extraction based on DeepLabV3
 description: |-
-  It can serve as a reference implementation of current best practices in the project (mirroring the [DEEP template](https://github.com/ai4os/ai4-template)).
+  **The Balearic Islands Coastal Observing and Forecasting System** ([SOCIB](https://www.socib.es/)) operates a multi-platform system in the western Mediterranean to provide reliable data and expert advice.
 
-  This demo module implements:
-  * **dummy inference**, ie. we return the same inputs we are fed. If some input is not fed we generate a default one.
-  * **dummy training**, ie. we sleep for some time and output some random monitoring metrics.
+  The **Shoreline position** is a key element in coastal research, engineering, and management. Its variability is driven by sea level and the continuous reshaping of the beach profile by incident waves, making it an integrated indicator of the coastal state and change. Due to the dynamic nature of the coastal environment, continuous monitoring of the shoreline is essential. This can be achieved using low-cost imaging systems and automated methods for shoreline extraction.
 
-  The two branches in this repo cover the two main usecases:
-  * `master`: this is a reference implementation on how to return a JSON response for predict().
-  * `return-files`: this is a reference implementation on how to return non-JSON responses for predict().
+  The **SOCIB Shoreline extraction** module is an AI-driven application that automatically delineates the "instantaneous shoreline" (the dynamic waterline limit) from both oblique and rectified RGB images, excluding features like wet sand or vegetation. The extraction process is a two-step procedure: (i) the DeepLabV3 Convolutional Neural Network performs image segmentation into 'landward,' 'seaward,' and (for rectified images) 'background' classes; (ii) an automated post-processing step defines the shoreline as the boundary line separating the segmented 'landward' and 'seaward' areas. See examples of input(left) and output(right) below:
 
-  This is particularly useful when returning:
-  - long responses (that could better fit better in a txt file),
-  - media files (eg. returning an image),
-  - multiple files (for example returning an image and a text file at the same time, packing them into a zip file).
-doi: https://doi.org/10.5281/zenodo.13343448
+  This application was trained using labelled oblique and rectified images from the [Spanish CoastSnap Network](https://doi.org/10.1016/j.ocecoaman.2024.107280), and delivers one different solution for each image type.
+
+  **References**
+  - Soriano-González, J., et al. (2025). Machine learning-driven shoreline extraction and beach seagrass wrack detection from beach imaging systems. In Proceedings of the 10th Coastal Dynamics Conference (Aveiro).
+  - Soriano-González, J., et al. (2024). From a citizen science programme to a coastline monitoring system: Achievements and lessons learnt from the Spanish CoastSnap network. https://doi.org/10.1016/j.ocecoaman.2024.107280
+  - Soriano-González, J., et al. (2023). SCLabels: Labelled rectified RGB images from the Spanish CoastSnap network [Data set]. Zenodo. https://doi.org/10.5281/zenodo.10159977
+
 dates:
-  created: '2024-03-26'
-  updated: '2024-08-12'
-provenance:
-  nomad_job: f4b9c17a-1077-11f0-9e04-0242ac120002
-  mlflow_run: 5e96fe940dca470aa7d6c16620e82c35
+  created: '2025-12-03'
+  updated: '2025-12-15'
 links:
-  documentation: http://add-some-documentation.com
-  source_code: https://github.com/ai4os-hub/ai4os-demo-app
-  docker_image: ai4oshub/ai4os-demo-app
+  source_code: https://github.com/ai4os-hub/socib-shoreline-extraction
+  docker_image: ai4oshub/socib-shoreline-extraction
   ai4_template: ai4-template/2.0.0
-  dataset: http://add-some-url-pointing-to-your-dataset.com
-  weights: http://add-some-weights-url.com
-  citation: https://doi.org/10.5281/zenodo.13343448
-  base_model: http://add-some-link-to-another-model.com
+  dataset: https://doi.org/10.5281/zenodo.15082426
 tags:
-  - demo
-  - general purpose
+  - deep learning
+  - beach monitoring
   - vo.imagine-ai.eu
 tasks:
+  - Computer Vision
+  - Transfer Learning
   - Other
 categories:
-  - AI4 trainable
   - AI4 pre trained
   - AI4 inference
 libraries:
-  - Other
+  - PyTorch
 data-type:
-  - Other
-resources:
-  inference:
-    cpu: 2
-    gpu: 1
-    memory_MB: 1000
-    gpu_memory_MB: 1000
-    gpu_compute_capability: 100.0
-    #  we use on purpose a unreasonable compute capability so that we can test the warning system
-    storage_MB: 1000
+  - Image
+  - Video

@@ -30,11 +30,10 @@ from io import BytesIO
 from pathlib import Path
 
 import cv2
-from webargs import fields, validate
 
 from socib_shoreline_extraction.app.predictor import ShorelinePredictor
 
-from . import config
+from . import config, schemas
 
 # set up logging
 logger = logging.getLogger(__name__)
@@ -66,63 +65,10 @@ def get_metadata():
 
 def get_predict_args():
     """
-    TODO: add more dtypes
-    * int with choices
-    * composed: list of strs, list of int
+    Returns the Marshmallow Schema Class.
+    DEEPaaS automatically handles the parsing when this returns a Schema.
     """
-    arg_dict = {
-        "file": fields.Raw(
-            required=True,
-            metadata={
-                "type": "file",
-                "location": "form",
-                "description": "Input an image.\n"
-                "accepted image formats: .jpg, .jpeg and .png. \n",
-            },
-        ),
-        "rectified": fields.Bool(
-            required=False,
-            load_default=True,
-            metadata={
-                "description": (
-                    "Specifies if the image is a planimetric (top-down) view with "
-                    "uniform ground resolution (rectified) or preserves the "
-                    "camera's perspective with variable resolution (oblique)."
-                )
-            },
-        ),
-        "boolean_crop_roi": fields.Bool(
-            required=False,
-            load_default=False,
-            metadata={
-                "description": (
-                    "Enable or disable cropping to the Region of Interest (ROI) "
-                    "before shoreline extraction."
-                )
-            },
-        ),
-        "crop_roi": fields.List(
-            fields.Int(),
-            required=False,
-            load_default=[640, 480, 1000, 2000],
-            validate=validate.Length(equal=4),
-            metadata={
-                "description": (
-                    "Optional Region of Interest (ROI) to crop the image. "
-                    "Format: [x1, y1, x2, y2]."
-                )
-            },
-        ),
-        "accept": fields.Str(
-            required=False,
-            load_default="application/json",  # <-- CANVIAT AQUI
-            validate=validate.OneOf(["application/json", "image/*"]),
-            metadata={
-                "description": "Select the desired response format.",
-            },
-        ),
-    }
-    return arg_dict
+    return schemas.PredictArgsSchema().fields
 
 
 def predict(**kwargs):
@@ -203,33 +149,3 @@ def predict(**kwargs):
 
     # return message if no valid accept type is found
     return {"message": "No valid accept type found."}
-
-
-# # Schema to validate the `predict()` output if accept field is "application/json"
-# schema = {
-#     "demo_str": fields.Str(),
-#     "demo_str_choice": fields.Str(),
-#     "demo_password": fields.Str(
-#         metadata={
-#             "format": "password",
-#         },
-#     ),
-#     "demo_int": fields.Int(),
-#     "demo_int_range": fields.Int(),
-#     "demo_float": fields.Float(),
-#     "demo_bool": fields.Bool(),
-#     "demo_dict": fields.Dict(),
-#     "demo_list_of_floats": fields.List(fields.Float()),
-#     "demo_image": fields.Str(
-#         description="image"  # description needed to be parsed by UI
-#     ),
-#     "demo_audio": fields.Str(
-#         description="audio"  # description needed to be parsed by UI
-#     ),
-#     "demo_video": fields.Str(
-#         description="video"  # description needed to be parsed by UI
-#     ),
-#     "labels": fields.List(fields.Str()),
-#     "probabilities": fields.List(fields.Float()),
-#     "accept": fields.Str(),
-# }

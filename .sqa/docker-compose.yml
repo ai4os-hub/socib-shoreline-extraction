@@ -1,5 +1,3 @@
-version: "3.6"
-
 services:
   thisrepo-testing:
     image: "indigodatacloud/ci-images:python3.10"

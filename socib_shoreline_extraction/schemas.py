@@ -3,7 +3,6 @@ from marshmallow import Schema, fields, validate
 
 class PredictArgsSchema(Schema):
     class Meta:
-        ordered = True
         description = "Arguments for shoreline prediction"
 
     file = fields.Raw(

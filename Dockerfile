@@ -33,19 +33,23 @@ WORKDIR /srv
 RUN git clone https://github.com/ai4os/deep-start /srv/.deep-start && \
     ln -s /srv/.deep-start/deep-start.sh /usr/local/bin/deep-start
 
-# TODO: Install from gitclone in a future
-COPY . /srv/socib-shoreline-extraction
-WORKDIR /srv/socib-shoreline-extraction
+# Install socib-shoreline-extraction (main)
+RUN git clone --depth 1 -b main https://github.com/ai4os-hub/socib-shoreline-extraction && \
+    cd socib-shoreline-extraction && \
+    pip3 install --no-cache-dir -e .
 
-RUN pip3 install --no-cache-dir -e .
-RUN pip3 install --no-cache-dir tox
+# Download pretrained models (oblique and rectified)
+RUN mkdir -p /srv/socib-shoreline-extraction/models && \
+    curl -L https://github.com/ai4os-hub/socib-shoreline-extraction/releases/download/v.0.1.0/oblique_best_model.pth \
+    --output /srv/socib-shoreline-extraction/models/oblique_best_model.pth && \
+    curl -L https://github.com/ai4os-hub/socib-shoreline-extraction/releases/download/v.0.1.0/rectified_best_model.pth \
+    --output /srv/socib-shoreline-extraction/models/rectified_best_model.pth
+
+# Set working directory
+WORKDIR /srv/socib-shoreline-extraction
 
 # Open ports: DEEPaaS (5000)
 EXPOSE 5000
 
 # Launch deepaas
 CMD ["deepaas-run", "--listen-ip", "0.0.0.0", "--listen-port", "5000", "--config-file", "deepaas.conf"]
-
-# Healthcheck
-HEALTHCHECK --interval=5s --timeout=3s --start-period=10s --retries=5 \
-  CMD curl --fail http://localhost:5000/v2  

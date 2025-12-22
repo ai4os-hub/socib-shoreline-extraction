@@ -20,6 +20,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update && \
         curl \
         nano \
         psmisc \
+        python3-venv \
     && rm -rf /var/lib/apt/lists/*
 
     # Set LANG environment
@@ -34,19 +35,22 @@ RUN git clone https://github.com/ai4os/deep-start /srv/.deep-start && \
     ln -s /srv/.deep-start/deep-start.sh /usr/local/bin/deep-start
 
 # Install socib-shoreline-extraction (main)
-RUN git clone --depth 1 -b main https://github.com/ai4os-hub/socib-shoreline-extraction && \
+RUN pip3 install --no-cache-dir --upgrade pip && \
+    git clone --depth 1 -b main https://github.com/ai4os-hub/socib-shoreline-extraction && \
     cd socib-shoreline-extraction && \
-    pip3 install --no-cache-dir -e .
+    pip3 install --no-cache-dir -e . && \
+    pip3 install --no-cache-dir tox && \
+    cd ..
+
+WORKDIR /srv/socib-shoreline-extraction
 
 # Download pretrained models (oblique and rectified)
-RUN mkdir -p /srv/socib-shoreline-extraction/models && \
+RUN mkdir -p /opt/models && \
     curl -L https://github.com/ai4os-hub/socib-shoreline-extraction/releases/download/v.0.1.0/oblique_best_model.pth \
-    --output /srv/socib-shoreline-extraction/models/oblique_best_model.pth && \
+         -o /opt/models/oblique_best_model.pth && \
     curl -L https://github.com/ai4os-hub/socib-shoreline-extraction/releases/download/v.0.1.0/rectified_best_model.pth \
-    --output /srv/socib-shoreline-extraction/models/rectified_best_model.pth
-
+         -o /opt/models/rectified_best_model.pth
 # Set working directory
-WORKDIR /srv/socib-shoreline-extraction
 
 # Open ports: DEEPaaS (5000)
 EXPOSE 5000

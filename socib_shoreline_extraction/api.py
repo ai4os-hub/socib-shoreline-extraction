@@ -98,7 +98,7 @@ def predict(**kwargs):
 
     path = "rectified" if is_rectified else "oblique"
     model_weight_path = os.path.abspath(
-        os.path.join(os.getcwd(), f"socib-shoreline-extraction/models/{path}_best_model.pth")
+        f"/opt/models/{path}_best_model.pth",
     )
     print("Model weight path:", model_weight_path)
 
@@ -131,6 +131,7 @@ def predict(**kwargs):
         )
     if output is None:
         raise ValueError("Prediction failed, output is None.")
+
     print("Prediction completed.")
     print("Output keys:", output.keys())
     print("Output predicted_image shape:", output["predicted_image"].shape)

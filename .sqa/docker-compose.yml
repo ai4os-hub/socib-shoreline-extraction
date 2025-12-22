@@ -1,13 +1,13 @@
 services:
   thisrepo-testing:
-    image: "indigodatacloud/ci-images:python3.10"
-    container_name: "${BUILD_TAG}"
-    hostname: "${BUILD_TAG}"
-    working_dir: /srv
+    build: .
+    image: socib-shoreline-extraction
+    
+    working_dir: /srv/socib-shoreline-extraction 
     command: >
-      sh -c "git config --global --add safe.directory /srv &&
+      sh -c "git config --global --add safe.directory /srv/socib-shoreline-extraction &&
              tail -f /dev/null"
     volumes:
       - type: bind
         source: ./
-        target: /srv
+        target: /srv/socib-shoreline-extraction

@@ -98,7 +98,7 @@ def predict(**kwargs):
 
     path = "rectified" if is_rectified else "oblique"
     model_weight_path = os.path.abspath(
-        os.path.join(os.getcwd(), f"models/{path}_best_model.pth")
+        os.path.join(os.getcwd(), f"socib-shoreline-extraction/models/{path}_best_model.pth")
     )
     print("Model weight path:", model_weight_path)
 

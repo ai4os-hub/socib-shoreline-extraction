@@ -38,9 +38,37 @@ Once the container is up and running, browse to http://0.0.0.0:5000/ui to get th
 
 ## 📂 Project structure
 
-
-
-## 🇪🇺 Acknowledgements
+```
+├── .gitignore                     <- List of files ignored by git
+├── .sqa/                          <- CI/CD configuration files
+│   ├── config.yml                 <- SQA configuration file
+│   └── docker-compose.yml         <- Docker compose for SQA testing
+├── ai4-metadata.yml               <- Defines information propagated to the AI4OS Hub
+├── data/                          <- Example images for testing
+│   ├── oblique.jpg
+│   └── rectified.jpg
+├── deepaas.conf                   <- Configuration file for DEEPaaS API server
+├── Dockerfile                     <- Describes steps to build the Docker image
+├── JenkinsConstants.groovy        <- Global constants for Jenkins pipeline
+├── Jenkinsfile                    <- Describes Jenkins CI/CD pipeline
+├── LICENSE                        <- License file
+├── models/                        <- Folder to store trained ML models
+├── pyproject.toml                 <- Build system dependencies and configuration
+├── README.md                      <- README for developers and users
+├── requirements.txt               <- List of Python dependencies
+├── socib_shoreline_extraction/    <- Main Python package source code
+│   ├── api.py                     <- API entry points and definition
+│   ├── app/                       <- Core application logic
+│   │   ├── data_processing/       <- Scripts for image manipulation
+│   │   ├── model/                 <- Neural network architectures
+│   │   └── predictor.py           <- Logic for running predictions
+│   ├── config.py                  <- Internal application configuration
+│   └── schemas.py                 <- API schemas
+├── tests/                         <- Unit and integration tests
+├── tox.ini                        <- Configuration for tox automation
+└── VERSION                        <- Current version of the application
+```
+# 🇪🇺 Acknowledgements
 
 This work was supported by ‘iMagine’ (Grant Agreement No.101058625) and ‘FOCCUS’ (Grant Agreement No.101133911) European Union funded projects. Views and opinions expressed are however those of the authors only and do not necessarily reflect those of the European Union or the European Health and Digital Executive Agency (HaDEA).
 

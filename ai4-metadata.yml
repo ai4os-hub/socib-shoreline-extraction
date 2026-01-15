@@ -17,12 +17,12 @@ description: |-
 
 dates:
   created: '2025-12-03'
-  updated: '2025-12-15'
+  updated: '2026-01-15'
 links:
   source_code: https://github.com/ai4os-hub/socib-shoreline-extraction
   docker_image: ai4oshub/socib-shoreline-extraction
   ai4_template: ai4-template/2.0.0
-  dataset: https://doi.org/10.5281/zenodo.15082426
+  dataset: https://doi.org/10.5281/zenodo.10159977
 tags:
   - deep learning
   - beach monitoring

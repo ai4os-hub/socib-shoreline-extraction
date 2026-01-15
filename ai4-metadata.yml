@@ -14,7 +14,6 @@ description: |-
   - Soriano-González, J., et al. (2025). Machine learning-driven shoreline extraction and beach seagrass wrack detection from beach imaging systems. In Proceedings of the 10th Coastal Dynamics Conference (Aveiro).
   - Soriano-González, J., et al. (2024). From a citizen science programme to a coastline monitoring system: Achievements and lessons learnt from the Spanish CoastSnap network. https://doi.org/10.1016/j.ocecoaman.2024.107280
   - Soriano-González, J., et al. (2023). SCLabels: Labelled rectified RGB images from the Spanish CoastSnap network [Data set]. Zenodo. https://doi.org/10.5281/zenodo.10159977
-
 dates:
   created: '2025-12-03'
   updated: '2026-01-15'
@@ -23,19 +22,21 @@ links:
   docker_image: ai4oshub/socib-shoreline-extraction
   ai4_template: ai4-template/2.0.0
   dataset: https://doi.org/10.5281/zenodo.10159977
+  zenodo_doi: https://doi.org/10.5281/zenodo.18255272
 tags:
-  - deep learning
-  - beach monitoring
-  - vo.imagine-ai.eu
+- deep learning
+- beach monitoring
+- vo.imagine-ai.eu
 tasks:
-  - Computer Vision
-  - Transfer Learning
-  - Other
+- Computer Vision
+- Transfer Learning
+- Other
 categories:
-  - AI4 pre trained
-  - AI4 inference
+- AI4 pre trained
+- AI4 inference
 libraries:
-  - PyTorch
+- PyTorch
 data-type:
-  - Image
-  - Video
+- Image
+- Video
+doi: 10.5281/zenodo.18255272

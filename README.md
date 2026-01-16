@@ -4,6 +4,7 @@
 
 Developed by [SOCIB](https://www.socib.es/), this AI module automatically delineates the shoreline in beach imagery. It achieves this through a two-step process: first, a Convolutional Neural Network performs image segmentation, and then an automated post-processing step defines the shoreline as the boundary between the segmented 'landward' and 'seaward' regions. The module integrates with the [DEEPaaS API](https://github.com/ai4os/DEEPaaS), which provides platform support and enhances the functionality and accessibility of the code, allowing users to interact with the detection pipeline efficiently.
 
+![shoreline_extraction_output_example](https://raw.githubusercontent.com/ai4os-hub/socib-shoreline-extraction/main/figures/shoreline_extraction_output_example.png)
 
 The underlying model (DeepLabV3) was trained on labelled oblique and rectified images from the [Spanish CoastSnap Network](https://doi.org/10.1016/j.ocecoaman.2024.107280), and delivers one different solution for each image type. 
 

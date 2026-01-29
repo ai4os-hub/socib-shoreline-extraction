@@ -1,0 +1,80 @@
+# This CITATION.cff file was generated with cffinit.
+# Visit https://bit.ly/cffinit to generate yours today!
+
+cff-version: 1.2.0
+title: SOCIB Shoreline extraction
+message: >-
+  A deployable AI module for shoreline extraction based on
+  DeepLabV3
+type: software
+authors:
+  - given-names: Josep
+    family-names: Oliver-Sansó
+    email: joliver@socib.es
+    affiliation: >-
+      Balearic Islands Coastal Observing and Forecasting System
+    orcid: 'https://orcid.org/0009-0006-9040-9118'
+  - given-names: Jesús
+    family-names: Soriano-González
+    email: jsoriano@socib.es
+    affiliation: >-
+      Balearic Islands Coastal Observing and Forecasting System
+    orcid: 'https://orcid.org/0000-0001-6573-3924'
+  - name: >-
+      Balearic Islands Coastal Observing and Forecasting System
+    address: >-
+      Isaac Newton St., Naorte Building, Block A, Floor 2,
+      Door 3
+    city: Palma
+    country: ES
+    post-code: '07121'
+    location: Parc Bit
+    region: Balearic Islands
+    alias: SOCIB
+    website: 'https://www.socib.es'
+identifiers:
+  - type: doi
+    value: 10.5281/zenodo.18255272
+repository-code: 'https://github.com/ai4os-hub/socib-shoreline-extraction'
+abstract: >-
+  The Balearic Islands Coastal Observing and Forecasting
+  System (SOCIB) operates a multi-platform system in the
+  western Mediterranean to provide reliable data and expert
+  advice.
+
+
+  The Shoreline position is a key element in coastal
+  research, engineering, and management. Its variability is
+  driven by sea level and the continuous reshaping of the
+  beach profile by incident waves, making it an integrated
+  indicator of the coastal state and change. Due to the
+  dynamic nature of the coastal environment, continuous
+  monitoring of the shoreline is essential. This can be
+  achieved using low-cost imaging systems and automated
+  methods for shoreline extraction.
+
+
+  The SOCIB Shoreline extraction module is an AI-driven
+  application that automatically delineates the
+  "instantaneous shoreline" (the dynamic waterline limit)
+  from both oblique and rectified RGB images, excluding
+  features like wet sand or vegetation. The extraction
+  process is a two-step procedure: (i) the DeepLabV3
+  Convolutional Neural Network performs image segmentation
+  into 'landward,' 'seaward,' and (for rectified images)
+  'background' classes; (ii) an automated post-processing
+  step defines the shoreline as the boundary line separating
+  the segmented 'landward' and 'seaward' areas. 
+
+
+  This application was trained using labelled oblique and
+  rectified images from the Spanish CoastSnap Network, and
+  delivers one different solution for each image type.
+keywords:
+  - Deep Learning
+  - Computer Vision
+  - Beach Monitoring
+  - Shoreline Extraction
+license: MIT
+version: v0.1.0
+date-released: '2025-12-16'

@@ -9,7 +9,7 @@ ARG tag=2.9.1-cuda12.6-cudnn9-runtime
 FROM pytorch/pytorch:${tag}
 
 LABEL maintainer='Josep Oliver-Sanso, Jesus Soriano-Gonzalez'
-LABEL version='0.0.1'
+LABEL version='0.1.1'
 
 # Install Ubuntu packages
 # - gcc is needed in Pytorch images because deepaas installation might break otherwise (see docs) (it is already installed in tensorflow images)
@@ -23,14 +23,13 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update && \
         python3-venv \
     && rm -rf /var/lib/apt/lists/*
 
-    # Set LANG environment
+# Set LANG environment
 ENV LANG=C.UTF-8
 
 # Set the working directory
 WORKDIR /srv
 
 # Initialization scripts
-# deep-start can install JupyterLab or VSCode if requested
 RUN git clone https://github.com/ai4os/deep-start /srv/.deep-start && \
     ln -s /srv/.deep-start/deep-start.sh /usr/local/bin/deep-start
 
@@ -46,11 +45,10 @@ WORKDIR /srv/socib-shoreline-extraction
 
 # Download pretrained models (oblique and rectified)
 RUN mkdir -p /opt/models && \
-    curl -L https://github.com/ai4os-hub/socib-shoreline-extraction/releases/download/v.0.1.0/oblique_best_model.pth \
+    curl -L https://github.com/ai4os-hub/socib-shoreline-extraction/releases/download/v0.1.1/oblique_best_model.pth \
          -o /opt/models/oblique_best_model.pth && \
-    curl -L https://github.com/ai4os-hub/socib-shoreline-extraction/releases/download/v.0.1.0/rectified_best_model.pth \
+    curl -L https://github.com/ai4os-hub/socib-shoreline-extraction/releases/download/v0.1.1/rectified_best_model.pth \
          -o /opt/models/rectified_best_model.pth
-# Set working directory
 
 # Open ports: DEEPaaS (5000)
 EXPOSE 5000

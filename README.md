@@ -16,7 +16,7 @@ To run the Docker container directly from Docker Hub and start using the API, si
 
 
 ```bash
-$ docker run -ti -p 5000:5000 ai4oshub/socib-shoreline-extraction
+docker run -ti -p 5000:5000 ai4oshub/socib-shoreline-extraction
 ```
 
 This command will pull the Docker container from the Docker Hub [ai4oshub](https://hub.docker.com/u/ai4oshub/) repository and start the default command (`deepaas-run --listen-ip=0.0.0.0 --config-file deepaas.conf`).

@@ -37,6 +37,12 @@ These three steps will download the repository from GitHub and will build the Do
 
 Once the container is up and running, browse to http://0.0.0.0:5000/ui to get the [OpenAPI (Swagger)](https://www.openapis.org/) documentation page.
 
+### Making Predictions with the API
+
+If you want a detailed, step-by-step example of how to send requests to the prediction endpoint, configure inference parameters, and process the results in memory, check out our interactive guide:
+
+**[API Prediction Tutorial: Python & Requests](notebooks/01_api_tutorial.ipynb)**
+
 ## 📂 Project structure
 
 ```

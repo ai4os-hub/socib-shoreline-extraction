@@ -41,7 +41,7 @@ Once the container is up and running, browse to http://0.0.0.0:5000/ui to get th
 
 If you want a detailed, step-by-step example of how to send requests to the prediction endpoint, configure inference parameters, and process the results in memory, check out our interactive guide:
 
-**[API Prediction Tutorial: Python & Requests](notebooks/01_api_tutorial.ipynb)**
+**[🧑‍🎓 API Tutorial: Extract shorelines from your images using a simple Python script](notebooks/01_Shoreline_Extraction_Tutorial.ipynb)**
 
 ## 📂 Project structure
 

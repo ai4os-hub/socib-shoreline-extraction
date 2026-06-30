@@ -6,7 +6,13 @@ Developed by [SOCIB](https://www.socib.es/), this AI module automatically deline
 
 ![shoreline_extraction_output_example](https://raw.githubusercontent.com/ai4os-hub/socib-shoreline-extraction/main/figures/shoreline_extraction_output_example.png)
 
-The underlying model (DeepLabV3) was trained on labelled oblique and rectified images from the [Spanish CoastSnap Network](https://doi.org/10.1016/j.ocecoaman.2024.107280), and delivers one different solution for each image type. 
+The underlying model (DeepLabV3) was trained on labelled oblique and rectified images from the Spanish CoastSnap Network, and delivers one different solution for each image type. 
+
+## 📚 References
+- [Oliver-Sansó, J., et al. (2026). Automating shoreline extraction from beach imaging systems for coastal monitoring. Environmental Modelling & Software, 204, 107078](https://doi.org/10.1016/j.envsoft.2026.107078)
+- [Soriano-González, J., et al. (2025). Machine Learning-Driven Shoreline Extraction and Beach Seagrass Wrack Detection from Beach Imaging Systems. In: Coelho, C., Hallin, C., Sancho, F., Silva, P.A. (eds) Coastal Dynamics 2025. CD 2025. Coastal Research Library, vol 42. Springer, Cham.](https://doi.org/10.1007/978-3-032-15477-4_62)
+- [Soriano-González, J., et al. (2024). From a citizen science programme to a coastline monitoring system: Achievements and lessons learnt from the Spanish CoastSnap network](https://doi.org/10.1016/j.ocecoaman.2024.107280)
+- [Soriano-González, J., et al. (2023). SCLabels Dataset: Labelled rectified RGB images from the Spanish CoastSnap network](https://doi.org/10.5281/zenodo.10159977)
 
 ## 🚀 Running the container
 
@@ -78,8 +84,3 @@ If you want a detailed, step-by-step example of how to send requests to the pred
 # 🇪🇺 Acknowledgements
 
 This work was supported by ‘iMagine’ (Grant Agreement No.101058625) and ‘FOCCUS’ (Grant Agreement No.101133911) European Union funded projects. Views and opinions expressed are however those of the authors only and do not necessarily reflect those of the European Union or the European Health and Digital Executive Agency (HaDEA).
-
-## 📚 References
-- Soriano-González, J., et al. (2025). Machine learning-driven shoreline extraction and beach seagrass wrack detection from beach imaging systems. In Proceedings of the 10th Coastal Dynamics Conference (Aveiro).
-- [Soriano-González, J., et al. (2024). From a citizen science programme to a coastline monitoring system: Achievements and lessons learnt from the Spanish CoastSnap network](https://doi.org/10.1016/j.ocecoaman.2024.107280)
-- [Soriano-González, J., et al. (2023). SCLabels Dataset: Labelled rectified RGB images from the Spanish CoastSnap network](https://doi.org/10.5281/zenodo.10159977)

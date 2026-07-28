@@ -13,10 +13,10 @@ description: |-
   This application was trained using labelled oblique and rectified images from the [Spanish CoastSnap Network](https://doi.org/10.1016/j.ocecoaman.2024.107280), and delivers one different solution for each image type.
 
   **References**
-- [Oliver-Sansó, J., et al. (2026). Automating shoreline extraction from beach imaging systems for coastal monitoring](https://doi.org/10.1016/j.envsoft.2026.107078)
-- [Soriano-González, J., et al. (2025). Machine Learning-Driven Shoreline Extraction and Beach Seagrass Wrack Detection from Beach Imaging Systems](https://doi.org/10.1007/978-3-032-15477-4_62)
-- [Soriano-González, J., et al. (2024). From a citizen science programme to a coastline monitoring system: Achievements and lessons learnt from the Spanish CoastSnap network](https://doi.org/10.1016/j.ocecoaman.2024.107280)
-- [Soriano-González, J., et al. (2023). SCLabels Dataset: Labelled rectified RGB images from the Spanish CoastSnap network](https://doi.org/10.5281/zenodo.10159977)
+  - [Oliver-Sansó, J., et al. (2026). Automating shoreline extraction from beach imaging systems for coastal monitoring](https://doi.org/10.1016/j.envsoft.2026.107078)
+  - [Soriano-González, J., et al. (2025). Machine Learning-Driven Shoreline Extraction and Beach Seagrass Wrack Detection from Beach Imaging Systems](https://doi.org/10.1007/978-3-032-15477-4_62)
+  - [Soriano-González, J., et al. (2024). From a citizen science programme to a coastline monitoring system: Achievements and lessons learnt from the Spanish CoastSnap network](https://doi.org/10.1016/j.ocecoaman.2024.107280)
+  - [Soriano-González, J., et al. (2023). SCLabels Dataset: Labelled rectified RGB images from the Spanish CoastSnap network](https://doi.org/10.5281/zenodo.10159977)
 dates:
   created: '2025-12-03'
   updated: '2026-01-15'

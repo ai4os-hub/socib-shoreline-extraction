@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """
 Functions to integrate your model with the DEEPaaS API.
 It's usually good practice to keep this file minimal, only performing
@@ -113,8 +112,8 @@ def predict(**kwargs):
     if crop_roi is None:
         output = predictor.predict(
             image_path,
-            patch_size=(256, 256),
-            stride=(128, 128),
+            patch_size=(512, 512),
+            stride=(256, 256),
             landward_pixel_pred=landward_pixel_pred,
             seaward_pixel_pred=seaward_pixel_pred,
         )
@@ -124,8 +123,8 @@ def predict(**kwargs):
         output = predictor.predict_roi(
             image_path,
             crop_coords=crop_coords,
-            patch_size=(256, 256),
-            stride=(128, 128),
+            patch_size=(512, 512),
+            stride=(256, 256),
             landward_pixel_pred=landward_pixel_pred,
             seaward_pixel_pred=seaward_pixel_pred,
         )

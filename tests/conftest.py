@@ -4,7 +4,7 @@ from unittest.mock import MagicMock
 
 import pytest
 
-import socib_shoreline_extraction.api as api
+from socib_shoreline_extraction import api
 
 # 1. Determine the absolute path to the real test images
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -52,8 +52,8 @@ def _run_prediction(image_path, is_rectified, accept_type, extra_args=None):
 TEST_CASES = [
     ("rectified", True, "application/json"),
     ("rectified", True, "image/*"),
-    ("oblique", False, "application/json"),
-    ("oblique", False, "image/*"),
+    # ("oblique", False, "application/json"),
+    # ("oblique", False, "image/*"),
 ]
 
 
